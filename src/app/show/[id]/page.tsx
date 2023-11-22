@@ -1,11 +1,26 @@
-import axios from 'axios'
 import React from 'react'
-import { API_URL } from '..'
 import { Show } from '@/types'
 import Image from 'next/image'
-import StarRating from 'react-svg-star-rating'
+import { API_URL } from '@/app/page'
 
-const Show = ({ show }: { show: Show }) => {
+async function getShow(id: string) {
+  const params = new URLSearchParams({ embed: 'cast' })
+  const url = `${API_URL}shows/${id}?${params.toString()}`
+
+  const response = await fetch(url, { cache: 'no-store' })
+
+  if (response.statusText !== 'OK') {
+    throw new Error('Failed to fetch show')
+  }
+
+  const show = await response.json()
+
+  return show
+}
+
+const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
+  const show: Show = await getShow(id)
+
   const data = [
     {
       title: 'Show Info',
@@ -58,13 +73,6 @@ const Show = ({ show }: { show: Show }) => {
             </div>
             <div className='flex-1 lg:px-20'>
               <div className='flex items-center gap-4 mt-6'>
-                <StarRating
-                  isReadOnly
-                  initialRating={show.rating.average || 0}
-                  unit='float'
-                  containerClassName='flex'
-                  size={20}
-                />
                 <div className='font-bold'>{show.rating.average || 0} / 5</div>
               </div>
               <h2 className='text-3xl lg:text-5xl my-6'>{show.name}</h2>
@@ -113,19 +121,4 @@ const Show = ({ show }: { show: Show }) => {
   )
 }
 
-export default Show
-
-export const getServerSideProps = async ({
-  params,
-}: {
-  params: { id: string }
-}) => {
-  const response = await axios.get(API_URL + 'shows/' + params.id, {
-    params: { embed: 'cast' },
-  })
-  const show: Show = response.data
-
-  return {
-    props: { show },
-  }
-}
+export default ShowPage
