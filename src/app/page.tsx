@@ -5,9 +5,11 @@ import Link from 'next/link'
 export const API_URL = 'https://api.tvmaze.com/'
 
 async function getShows() {
-  const response = await fetch(API_URL + 'schedule', { cache: 'no-store' })
+  const response = await fetch(API_URL + 'schedule', {
+    next: { revalidate: 60 },
+  })
 
-  if (response.statusText !== 'OK') {
+  if (!response.ok) {
     throw new Error('Failed to fetch shows')
   }
 

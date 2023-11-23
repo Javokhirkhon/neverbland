@@ -9,7 +9,7 @@ async function getShow(id: string) {
 
   const response = await fetch(url, { cache: 'no-store' })
 
-  if (response.statusText !== 'OK') {
+  if (!response.ok) {
     throw new Error('Failed to fetch show')
   }
 
