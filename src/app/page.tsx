@@ -1,12 +1,10 @@
+import Image from '@/components/Image'
 import Star from '@/components/Star'
 import { Show } from '@/types'
-import Image from 'next/image'
 import Link from 'next/link'
 
-export const API_URL = 'https://api.tvmaze.com/'
-
 async function getShows() {
-  const response = await fetch(API_URL + 'schedule', {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + 'schedule', {
     next: { revalidate: 60 },
   })
 
@@ -38,18 +36,7 @@ const HomePage = async () => {
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
           {shows.map(({ id, name, image, rating }, index) => (
             <Link key={index} href={`/show/${id}`} className='p-2 hover:shadow'>
-              <div className='relative w-full h-80 mb-2'>
-                <Image
-                  src={image?.original}
-                  alt={name}
-                  fill
-                  priority
-                  sizes='100%'
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
+              <Image src={image.medium} alt={name} styles='w-full h-80 mb-2' />
               <Star rating={rating.average} />
               <div className='mt-2'>{name}</div>
             </Link>

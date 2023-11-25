@@ -1,12 +1,12 @@
-import React from 'react'
 import { Show } from '@/types'
-import Image from 'next/image'
-import { API_URL } from '@/app/page'
 import Star from '@/components/Star'
+import Image from '@/components/Image'
 
 async function getShow(id: string) {
   const params = new URLSearchParams({ embed: 'cast' })
-  const url = `${API_URL}shows/${id}?${params.toString()}`
+  const url = `${
+    process.env.NEXT_PUBLIC_API_URL
+  }shows/${id}?${params.toString()}`
 
   const response = await fetch(url, { cache: 'no-store' })
 
@@ -60,18 +60,12 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
         <div className='container mx-auto px-4'>
           <h1 className='text-3xl font-bold py-16'>TV Bland</h1>
           <div className='lg:flex items-center pb-8'>
-            <div className='relative w-full lg:w-64 h-96'>
-              <Image
-                src={show.image.original}
-                alt={show.name}
-                fill
-                priority
-                sizes='100%'
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
+            <Image
+              src={show.image.medium}
+              alt={show.name}
+              priority
+              styles='w-full lg:w-64 h-96'
+            />
             <div className='flex-1 lg:px-20'>
               <div className='flex items-center gap-4 mt-6 text-lg'>
                 <Star rating={show.rating.average} />
@@ -95,18 +89,12 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
                 className='flex items-center lg:border-b-2 pb-4 mb-4 overflow-hidden'
               >
                 {image && (
-                  <div className='relative w-14 h-14 mr-10 rounded-full overflow-hidden'>
-                    <Image
-                      src={image}
-                      alt={name}
-                      fill
-                      priority
-                      sizes='100%'
-                      style={{
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </div>
+                  <Image
+                    src={image}
+                    alt={name}
+                    priority
+                    styles='w-14 h-14 mr-10 rounded-full overflow-hidden'
+                  />
                 )}
                 <div className='lg:flex items-center'>
                   <div style={{ minWidth: '200px' }}>{name}</div>
