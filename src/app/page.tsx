@@ -1,3 +1,4 @@
+import Star from '@/components/Star'
 import { Show } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -49,12 +50,12 @@ const HomePage = async () => {
                   }}
                 />
               </div>
+              <Star rating={rating.average} />
               <div className='mt-2'>{name}</div>
             </Link>
           ))}
         </div>
       </div>
-      <div className='bg-gray-200 h-80' />
     </>
   )
 }

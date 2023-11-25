@@ -2,6 +2,7 @@ import React from 'react'
 import { Show } from '@/types'
 import Image from 'next/image'
 import { API_URL } from '@/app/page'
+import Star from '@/components/Star'
 
 async function getShow(id: string) {
   const params = new URLSearchParams({ embed: 'cast' })
@@ -72,14 +73,14 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
               />
             </div>
             <div className='flex-1 lg:px-20'>
-              <div className='flex items-center gap-4 mt-6'>
-                <div className='font-bold'>{show.rating.average || 0} / 5</div>
+              <div className='flex items-center gap-4 mt-6 text-lg'>
+                <Star rating={show.rating.average} />
+                <div className='font-bold'>
+                  {(show.rating.average || 0) / 2} / 5
+                </div>
               </div>
               <h2 className='text-3xl lg:text-5xl my-6'>{show.name}</h2>
-              <div
-                dangerouslySetInnerHTML={{ __html: show.summary }}
-                className='text-lg'
-              />
+              <div dangerouslySetInnerHTML={{ __html: show.summary }} />
             </div>
           </div>
         </div>
@@ -116,7 +117,6 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
           </div>
         ))}
       </div>
-      <div className='bg-gray-200 h-80' />
     </>
   )
 }
