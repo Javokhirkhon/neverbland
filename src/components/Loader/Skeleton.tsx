@@ -1,6 +1,6 @@
 import Star from '@/components/Star'
 
-const LoadingSkeleton = () => (
+const Skeleton = () => (
   <div className='animate-pulse bg-gray-300 p-2 hover:shadow'>
     <div className='w-full h-80 mb-2 bg-gray-400' />
     <Star rating={0} />
@@ -8,4 +8,4 @@ const LoadingSkeleton = () => (
   </div>
 )
 
-export default LoadingSkeleton
+export default Skeleton

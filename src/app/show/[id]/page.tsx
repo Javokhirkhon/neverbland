@@ -1,6 +1,7 @@
 import { Show } from '@/types'
 import Star from '@/components/Star'
 import Image from '@/components/Image'
+import Spinner from '@/components/Loader/Spinner'
 
 async function getShow(id: string) {
   const params = new URLSearchParams({ embed: 'cast' })
@@ -29,7 +30,7 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
       data: [
         {
           name: 'Streamed on',
-          value: show.network.name,
+          value: show.network?.name,
         },
         {
           name: 'Schedule',
@@ -63,7 +64,7 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
           <h1 className='text-3xl font-bold py-16'>TV Bland</h1>
           <div className='lg:flex items-center pb-8'>
             <Image
-              src={show.image.medium}
+              src={show.image.original}
               alt={show.name}
               priority
               styles='w-full lg:w-64 h-96'

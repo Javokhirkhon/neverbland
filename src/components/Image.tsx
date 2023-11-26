@@ -4,10 +4,10 @@ type ImageProps = {
   src: string
   alt: string
   styles: string
-  priority?: boolean | undefined
+  priority?: boolean
 }
 
-const Image = ({ src, alt, priority, styles }: ImageProps) =>
+const Image = ({ src, alt, priority = false, styles }: ImageProps) =>
   src ? (
     <div className={`relative ${styles}`}>
       <NextImage

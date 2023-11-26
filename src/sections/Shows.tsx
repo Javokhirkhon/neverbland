@@ -1,7 +1,7 @@
 'use client'
 
 import Image from '@/components/Image'
-import LoadingSkeleton from '@/components/LoadingSkeleton'
+import Skeleton from '@/components/Loader/Skeleton'
 import Star from '@/components/Star'
 import { Show } from '@/types'
 import { getTodayDate } from '@/utils/getTodayDate'
@@ -14,6 +14,7 @@ const Shows = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // Effect to fetch data when the selected date changes
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -53,9 +54,7 @@ const Shows = () => {
       </div>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
         {loading ? (
-          Array.from({ length: 12 }).map((_, index) => (
-            <LoadingSkeleton key={index} />
-          ))
+          Array.from({ length: 12 }).map((_, index) => <Skeleton key={index} />)
         ) : error ? (
           <div className='text-red-500'>{error}</div>
         ) : shows.length === 0 ? (
