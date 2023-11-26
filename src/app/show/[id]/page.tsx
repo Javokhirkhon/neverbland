@@ -25,6 +25,7 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
   const data = [
     {
       title: 'Show Info',
+      avatar: false,
       data: [
         {
           name: 'Streamed on',
@@ -46,10 +47,11 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
     },
     {
       title: 'Starring',
+      avatar: true,
       data: show._embedded.cast.map(({ character, person }: any) => ({
         name: person.name,
         value: character.name,
-        image: person?.image?.original,
+        image: person?.image?.medium,
       })),
     },
   ]
@@ -80,7 +82,7 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
       </div>
       <div className='container mx-auto px-4 my-16 lg:flex gap-14'>
-        {data.map(({ title, data }) => (
+        {data.map(({ title, avatar, data }) => (
           <div key={title} className='flex-1'>
             <div className='text-3xl mb-10'>{title}</div>
             {data.map(({ name, value, image }: any, index: number) => (
@@ -88,7 +90,7 @@ const ShowPage = async ({ params: { id } }: { params: { id: string } }) => {
                 key={index}
                 className='flex items-center lg:border-b-2 pb-4 mb-4 overflow-hidden'
               >
-                {image && (
+                {avatar && (
                   <Image
                     src={image}
                     alt={name}
