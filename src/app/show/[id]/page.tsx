@@ -1,7 +1,6 @@
 import { Show } from '@/types'
 import Star from '@/components/Star'
 import Image from '@/components/Image'
-import Spinner from '@/components/Loader/Spinner'
 
 async function getShow(id: string) {
   const params = new URLSearchParams({ embed: 'cast' })

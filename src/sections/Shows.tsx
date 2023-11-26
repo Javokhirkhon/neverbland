@@ -16,19 +16,35 @@ const Shows = () => {
 
   // Effect to fetch data when the selected date changes
   useEffect(() => {
+    const abortController = new AbortController()
+
     const fetchData = async () => {
       setLoading(true)
       setError('')
 
       try {
         const params = new URLSearchParams({ date: selectedDate })
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}schedule?${params.toString()}`
-        )
+        const url = `${
+          process.env.NEXT_PUBLIC_API_URL
+        }schedule?${params.toString()}`
+
+        const response = await fetch(url, { signal: abortController.signal })
+
+        // Check if the fetch was aborted
+        if (abortController.signal.aborted) {
+          console.log('Fetch aborted: Component unmounted.')
+          return
+        }
 
         const data = await response.json()
         setShows(data.map(({ show }: { show: Show }) => show))
       } catch (error) {
+        // Check if the fetch was aborted
+        if (abortController.signal.aborted) {
+          console.log('Fetch aborted: Component unmounted.')
+          return
+        }
+
         setError('Error fetching shows')
         console.error('Error fetching shows:', error)
       } finally {
@@ -37,6 +53,11 @@ const Shows = () => {
     }
 
     fetchData()
+
+    // Cleanup function: Abort the fetch if the component unmounts
+    return () => {
+      abortController.abort()
+    }
   }, [selectedDate])
 
   return (
