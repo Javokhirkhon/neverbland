@@ -1,33 +1,51 @@
-# TV Bland
+# Neverbland
 
-## Tech Stack
+## Overview
 
-- **Next.js**: A React framework for building server-side rendered and statically generated web applications.
-- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom user interfaces.
-- **TypeScript**: A typed superset of JavaScript that adds static types to the language, enhancing development experience and catching potential errors early in the process.
+This project has undergone several updates and improvements to enhance its functionality, structure, and user experience.
 
-## Pagination
+### Updates
 
-Due to limitations in the provided API, traditional offset-based or cursor-based pagination is not supported. As a result, no explicit pagination is implemented on the frontend. This limitation may lead to longer loading times, especially when retrieving a large dataset.
+1. **Migrated Project Structure**
 
-Creating pagination functionality on the frontend side would not significantly improve loading times in this scenario. Since the API lacks native support for efficient pagination strategies, implementing pagination on the frontend would still require fetching and processing the entire dataset.
+   - Transitioned from NextJS pages structure to a more organized app structure.
 
-As a trade-off between functionality and performance optimization, the decision to omit frontend pagination is intentional. This choice aims to provide a simpler user experience while acknowledging the potential impact on loading times for larger datasets.
+2. **Date Filtering**
 
-## Components
+   - Implemented filtering by date, allowing users to efficiently navigate and explore data based on specific time frames.
 
-In this project, there is no dedicated `components` folder, and components are not separated into individual files. The structure was kept simple due to the project's size and to maintain clarity.
+3. **Improved Image Component**
 
-## Getting Started
+   - Enhanced the image component for a better user experience.
 
-1. Install dependencies:
+4. **Up-to-Date Data**
 
-   npm install --force
+   - Ensured that all data is current, eliminating stale pages and providing users with the latest information.
 
-   Note: The `--force` flag is required due to the `react-svg-star-rating` library's specific requirements. I am aware of the potential risks associated with using the `--force` flag, and it is being used here as a necessary step to address library dependencies.
+5. **Enhanced State Handling**
 
-2. Run the development server:
+   - Implemented various state handling mechanisms, including loading, error, and information states to provide a smoother and more informative user experience.
 
-   npm run dev
+6. **Refactored Star Rating Component**
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+   - Conducted a refactoring of the star rating component for improved code quality and functionality.
+
+7. **Project Structure Refinement**
+
+   - Improved the overall project structure for better organization and clarity. Tidied up the codebase to enhance maintainability.
+
+8. **API URL Configuration**
+
+   - Moved the API URL configuration to the environment file, enhancing security and flexibility.
+
+9. **Production Version**
+   - Deployed a production version of the project, accessible at https://neverbland-sooty.vercel.app/.
+
+### Notes
+
+1. **Image Optimization**
+
+   - Acknowledged the trade-off between using width/height constraints for performance and responsiveness. Usually, larger images are optimized on the backend side with considerations for appropriate width, height, and quality settings.
+
+2. **Environment Variables**
+   - Recognized that pushing environment files directly to the Git repository is generally considered a bad practice. Typically, these files are added to .gitignore, and environment variables are configured on the server side. For the sake of convenience and to facilitate your review, the environment file has been included in the repository.
